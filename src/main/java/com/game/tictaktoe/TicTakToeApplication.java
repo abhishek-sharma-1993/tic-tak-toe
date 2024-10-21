@@ -2,8 +2,7 @@ package com.game.tictaktoe;
 
 import com.game.tictaktoe.controller.GameController;
 import com.game.tictaktoe.model.*;
-import com.game.tictaktoe.strategies.ColWinningStrategy;
-import com.game.tictaktoe.strategies.RowWinningStrategy;
+import com.game.tictaktoe.strategies.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -19,12 +18,12 @@ public class TicTakToeApplication {
         GameController gameController = new GameController();
 
         Player player1 = new HumanPlayer("Abhishek", 1, Symbol.X);
-        Player player2 = new HumanPlayer("Shubhi", 2, Symbol.O);
+        Player player2 = new BotPlayer("Shubhi", 2, Symbol.O, BotDifficultyLevel.EASY);
 
         Game game = gameController.startGame(
                 3,
                 List.of(player1,player2),
-                List.of(new ColWinningStrategy(), new RowWinningStrategy())
+                List.of(new ColWinningStrategy(), new RowWinningStrategy(), new DiagonalWinningStrategy())
         );
 
         game.getBoard().displayBoard();
